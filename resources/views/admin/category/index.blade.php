@@ -1,15 +1,9 @@
 @extends('admin.layouts.app')
-
 @section('title')
     Dashboard
 @endsection
-<?php $menu = 'Dashboard';
-$submenu = ''; ?>
-
 @section('content')
 <div class="container-fluid">
-                               
-    
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -38,7 +32,7 @@ $submenu = ''; ?>
                                             <form action="{{route ('category.destroy',$category->id) }}" method="POST" style="display:inline-block">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button style="border: 0ch ;background: transparent;" type="submit"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></button>
+                                                <button class="delete" style="border: 0ch ;background: transparent;" type="submit"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></button>
                                                 {{-- <button type="submit"class="fa-sharp fa-solid fa-trash"></button> --}}
                                             </form>
                                         </th>

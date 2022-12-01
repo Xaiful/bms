@@ -24,7 +24,22 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'=>[
+                'required',
+                 'string'
+            ],
+            'description'=>[
+                'required',
+                 'string'
+            ],
+            'price'=>[
+                'required',
+                 'integer'
+            ],
+            'img' => [
+                'nullable',
+                'image:jpg,png,jpeg',
+            ],
         ];
     }
 }

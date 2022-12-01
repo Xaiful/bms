@@ -23,17 +23,13 @@ class Post extends Model
         return $this->belongsToMany(Category::class,'posts_categories','post_id','category_id');
     }
 
-    public function getImgsAttribute($value)
-    {
-        return json_decode($value, true);
-    }
 
     public function getImagesAttribute($value)
     {
         $values = [];
         if ($value) {
-            foreach (json_decode($value) as $img) {
-                $values[] = asset('storage/'.$img);
+            foreach (json_decode($value) as $image) {
+                $values[] = asset('storage/'.$image);
             }
             return $values;
         }

@@ -3,8 +3,6 @@
 @section('title')
     Dashboard
 @endsection
-<?php $menu = 'Dashboard';
-$submenu = ''; ?>
 @section('content')
 
     <div class="container-fluid">

@@ -29,16 +29,16 @@
                 with font-awesome or any other icon font library -->
                 
 
-                <li class="nav-item @if ($menu == 'Dashboard') menu-open @endif">
+                <li class="nav-item">
                     <a href="{{ route('dashboard') }}"
-                        class="nav-link @if ($menu == 'Dashboard') active @endif">
+                        class="nav-link {{ (request()->is('admin/dashboard*')) ? 'active' : '' }}">
                         <p> Dashboard </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route('category.index') }}"
-                        class="nav-link @if ($menu == 'Category') active @endif">
+                        class="nav-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
                         <i class="fa-brands fa-yelp"></i>
                         <p> Category </p>
                     </a>
@@ -46,28 +46,28 @@
 
                 <li class="nav-item">
                     <a href="{{ route('post.index') }}"
-                        class="nav-link @if ($menu == 'Post') active @endif">
+                        class="nav-link {{ (request()->is('admin/post*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-area"></i>
                         <p> Post </p>
                     </a>
                 </li>
 
-                <li class="nav-item @if ($menu == 'HSC_exam') menu-open @endif">
-                    <a href="#" class="nav-link @if ($menu == 'HSC_exam') active @endif">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p> HSC Exam <i class="fas fa-angle-left right"></i> </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a
-                                class="nav-link @if ($submenu == 'Current_year') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Current year</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a
-                                class="nav-link @if ($submenu == 'Previous_records') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Previous records</p>
                             </a>
@@ -75,15 +75,15 @@
                     </ul>
                 </li>
 
-                <li class="nav-item @if ($menu == 'Teachers') menu-open @endif">
-                    <a href="#" class="nav-link @if ($menu == 'Teachers') active @endif">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p> Teachers <i class="fas fa-angle-left right"></i> </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a
-                                class="nav-link @if ($submenu == 'All_Teachers') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>All teachers</p>
                             </a>
@@ -97,21 +97,21 @@
                         </li> --}}
                         <li class="nav-item">
                             <a 
-                                class="nav-link @if ($submenu == 'Science') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Science</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a 
-                                class="nav-link @if ($submenu == 'Humanities') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Humanities</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a 
-                                class="nav-link @if ($submenu == 'Business') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Business</p>
                             </a>
@@ -119,22 +119,22 @@
                     </ul>
                 </li>
 
-                <li class="nav-item @if ($menu == 'Admission') menu-open @endif">
-                    <a href="#" class="nav-link @if ($menu == 'Admission') active @endif">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-plus"></i>
                         <p> Admission <i class="fas fa-angle-left right"></i> </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a
-                                class="nav-link @if ($submenu == 'Manage_admission') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Manage admission</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a 
-                                class="nav-link @if ($submenu == 'Security_code') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Security code</p>
                             </a>
@@ -144,22 +144,22 @@
 
                 <li class="nav-header">others</li>
 
-                <li class="nav-item @if ($menu == 'Download') menu-open @endif">
-                    <a href="#" class="nav-link @if ($menu == 'Download') active @endif">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cloud-download-alt"></i>
                         <p> Download <i class="fas fa-angle-left right"></i> </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a 
-                                class="nav-link @if ($submenu == 'Testimonial') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Testimonial</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a
-                                class="nav-link @if ($submenu == 'Transfer_Certificate') active @endif">
+                                class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Transfer Certificate</p>
                             </a>

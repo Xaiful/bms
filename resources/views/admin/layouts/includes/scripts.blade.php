@@ -101,7 +101,29 @@
         var link = $(this).attr("href");
         Swal.fire({
             title: 'Are you sure?',
-            text: "Once done, you can't undo it",
+            text: "Do you want to publish it",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link;
+            }
+        })
+    });
+</script>
+<script>
+    $('.pending').click(function(event) {
+        var form = $(this).closest("form");
+        event.preventDefault();
+        var link = $(this).attr("href");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to pending it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

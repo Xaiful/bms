@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Intervention\Image\Facades\Image;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -45,20 +46,13 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         // dd($request->all());
-        // if($request->hasFile('imgs')){
-        //     foreach($request->file('imgs') as $img){
-        //         $pathName = Str::snake($request->get('title')).'.'.$img->getClientOriginalName();
-        //         $path[] = Storage::putFileAs('images',$img, $pathName);
-        //     }
-
-        // }
         $path = [];
-        if($request->hasFile("images")) {
-            foreach($request->file('images') as $file) {
-                // $pathName = Str::snake($request->get('title')).'.'.$file->getClientOriginalName();
-                // $path[] = $file->store("images/post".$pathName);
-                $path[] = $file->store("images/post");
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $file){
+                $pathName = $file->getClientOriginalName();
+                $path[] = $file->storeAs('images/post',$pathName);
             }
+
         }
         $storeData = [
             'title'=> $request->title,
@@ -112,22 +106,13 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePostRequest $request, Post $post)
-    {   
-
-        // if($request->hasFile('imgs')){
-        //     if($post->imgs){
-        //         Storage::delete($post->imgs);
-        //     }
-        //     $fileName = $request->file('imgs')->getClientOriginalName(0);
-        //     $post->imgs = Storage::putFileAs('images',$request->file('imgs'), $fileName);
-        // }
+    {
         $images = json_decode($post->getRawOriginal('images'), true);
         if($request->has('deleted_images') && count($request->get('deleted_images'))) {
             $files = $request->get('deleted_images');
             foreach($files as $file) {
                 $deleteImages[] = substr($file, 8);
             }
-
             Storage::delete($deleteImages);
             $images = array_diff($images, $deleteImages);
         }
@@ -164,11 +149,16 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {   if($post->images){
-        Storage::delete($post->images);
-    }
-        $post->delete();
-        return redirect()->route('post.index')->with('success','Your post has been successfully deleted');
+    {   
+        if($post->images){
+            $images = json_decode($post->getRawOriginal('images'));
+            if($post->delete()) {
+                foreach($images as $image) {
+                    Storage::delete($image);
+                }
+                return redirect()->back()->with('success','Your post has been successfully deleted');
+            };
+        }
     }
 
     public function status($id){

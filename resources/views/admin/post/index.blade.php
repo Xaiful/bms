@@ -1,10 +1,7 @@
 @extends('admin.layouts.app')
-
 @section('title')
     Dashboard
 @endsection
-<?php $menu = 'Dashboard';
-$submenu = ''; ?>
 @section('content')
     {{-- Main Content Start --}}
     <div class="container-fluid">
@@ -45,7 +42,7 @@ $submenu = ''; ?>
                                 <th>{{ $post->price }}</th>
                                 <th>
                                     @if($post->images)
-                                    <img src="{{ asset($post->images[0]) }}"style="height: 200px; width: 150px;">
+                                    <a href="{{route ('post.show',$post->id) }}" > <img src="{{ asset($post->images[0]) }}"style="height: 200px; width: 150px;"></a>
                                     @endif
                     
                                 </th> 
@@ -56,13 +53,13 @@ $submenu = ''; ?>
                                         <form action="{{route ('post.destroy',$post->id) }}" method="POST" style="display:inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button style="border: 0ch ;background: transparent;" type="submit"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></button>
+                                            <button class="delete" style="border: 0ch ;background: transparent;" type="submit"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></button>
                                         </form>
                                         @if($post->status=='1')
-                                            <a href="{{route('status',$post->id)}}"> <i style="color: red;" class="fa-solid fa-xmark"></i> </a>
+                                            <a class="pending" href="{{route('status',$post->id)}}"> <i style="color: red;" class="fa-solid fa-xmark"></i> </a>
                                         @endif
                                         @if($post->status=='0')
-                                            <a href="{{route('status',$post->id)}}"> <i style="color: green" class="fa-solid fa-check"></i> </a>
+                                            <a class="confirm" href="{{route('status',$post->id)}}"> <i style="color: green" class="fa-solid fa-check"></i> </a>
                                         @endif
                                     </div>
                                 </th>

@@ -1,11 +1,7 @@
 @extends('admin.layouts.app')
-
 @section('title')
     Dashboard
 @endsection
-<?php $menu = 'Dashboard';
-$submenu = ''; ?>
-
 @section('content')
     <div class="container-fluid">
         <!-- Info boxes -->
@@ -48,7 +44,7 @@ $submenu = ''; ?>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Current Users</span>
-                        {{-- <span class="info-box-number">{{ $users->count() }}</span> --}}
+                        <span class="info-box-number">{{ $users->count() }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -61,7 +57,7 @@ $submenu = ''; ?>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Total Posts</span>
-                        {{-- <span class="info-box-number">{{ $posts->count() }}</span> --}}
+                        <span class="info-box-number">{{ $posts->count() }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -133,12 +129,27 @@ $submenu = ''; ?>
                     <!-- /.card-header -->
 
                     <div class="card-body">
-                        <div id="piechart_3d" style="width: 100%; height: 225px;"></div>
+                        <div id="piechart_3d" style="width: 100%; height: 225px;">
+                            <table>
+                                @foreach ($posts as $post)
+                                    <tr>
+                                        <td>
+                                            <h6>
+                                                {{ $post->categories->pluck('name')->join(',',', and ')}}
+                                            </h6>
+                                            <h5>
+                                                {{ $loop->index+1 }}
+                                            {{$post->title}}
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </table>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
                 <!-- /.card -->
-            </div>
+                </div>
             <!-- /.col -->
 
             <div class="col-md-12">

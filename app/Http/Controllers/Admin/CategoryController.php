@@ -69,7 +69,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $data['category'] = $category;
-        return view('category.edit',$data);
+        return view('admin.category.edit',$data);
     }
 
     /**
