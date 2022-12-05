@@ -22,8 +22,7 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class,'posts_categories','post_id','category_id');
     }
-
-
+    
     public function getImagesAttribute($value)
     {
         $values = [];
@@ -33,7 +32,6 @@ class Post extends Model
             }
             return $values;
         }
-
         return [];
     }
 

@@ -1,16 +1,11 @@
 @extends('admin.layouts.app')
-@section('title')
-    Dashboard
-@endsection
 @section('content')
     {{-- Main Content Start --}}
     <div class="container-fluid">
         <!-- Page Heading -->
-        
         <div class="container">
             <div class="mb-3">
                 <div class="card">
-                       
                     <div class="card-header">
                         <h4>Post List
                             <a href="{{ route('post.create') }}" class="btn btn-sm btn-secondary float-right">Create Post</a>
@@ -32,19 +27,14 @@
                             @foreach($posts as $post)
                             <tr>
                                 <th>{{ $post->id }}</th>
-                                <th>{{ $post->categories->pluck('name')->join(',',', and')}}</th>
+                                <th>{{ $post->categories->pluck('name')->join(',',', and ')}}</th>
                                 <th>{{ $post->title }}</th>
-                                <th> 
-                                    {{-- <textarea> --}}
-                                        {{ $post->description }}
-                                    {{-- </textarea> --}}
-                                </th>
+                                <th>{{ $post->description }}</th>
                                 <th>{{ $post->price }}</th>
                                 <th>
                                     @if($post->images)
                                     <a href="{{route ('post.show',$post->id) }}" > <img src="{{ asset($post->images[0]) }}"style="height: 200px; width: 150px;"></a>
                                     @endif
-                    
                                 </th> 
                                 <th>
                                     <div style="width: max-content">
@@ -56,15 +46,15 @@
                                             <button class="delete" style="border: 0ch ;background: transparent;" type="submit"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></button>
                                         </form>
                                         @if($post->status=='1')
-                                            <a class="pending" href="{{route('status',$post->id)}}"> <i style="color: red;" class="fa-solid fa-xmark"></i> </a>
+                                            <a class="pending" href="{{route('status',$post->id)}}"><i style="color: green" class="fa-solid fa-check"></i></a>
                                         @endif
                                         @if($post->status=='0')
-                                            <a class="confirm" href="{{route('status',$post->id)}}"> <i style="color: green" class="fa-solid fa-check"></i> </a>
+                                            <a class="confirm" href="{{route('status',$post->id)}}"><i style="color: red;" class="fa-solid fa-xmark"></i></a>
                                         @endif
                                     </div>
                                 </th>
                                 <th>
-                                    {{ ($post->status=='0') ? 'Pending' : 'Published' }}
+                                    {{ ($post->status== 0) ? 'Pending' : 'Published' }}
                                 </th>
                             </tr>
                             @endforeach

@@ -181,7 +181,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($users as $index => $item)
+                                @foreach ($users as $index => $item)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>
@@ -195,7 +195,7 @@
                                         </td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            @if ($item->active_status == 1)
+                                            @if ($item->is_admin == 1)
                                                 <span class="badge badge-pill badge-success">Online</span>
                                             @else
                                                 <span class="badge badge-pill badge-dark">Offline</span>
@@ -208,16 +208,14 @@
                                         </td>
                                         <td>{{ date('d F, Y', strtotime($item->created_at)) }}</td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-
                 </div>
                 <!-- /.card -->
             </div>
         </div>
-
     </div>
 @endsection
 

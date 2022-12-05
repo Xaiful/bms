@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Intervention\Image\Facades\Image;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -52,7 +51,6 @@ class PostController extends Controller
                 $pathName = $file->getClientOriginalName();
                 $path[] = $file->storeAs('images/post',$pathName);
             }
-
         }
         $storeData = [
             'title'=> $request->title,
@@ -161,14 +159,17 @@ class PostController extends Controller
         }
     }
 
+// ............Status Fubction Start............//
+
     public function status($id){
         $post = Post::where(['id'=>$id])->first();
         if($post->status== 0){
-            Post::where(['id'=>$id])->update(['status'=>'1']);
+            Post::where(['id'=>$id])->update(['status'=> 1]);
             return redirect()->route('post.index')->with('success','Your post has been Pending for Published');
         }
+
         if($post->status== 1){
-            Post::where(['id'=>$id])->update(['status'=>'0']);
+            Post::where(['id'=>$id])->update(['status'=> 0]);
         }
         return redirect()->route('post.index')->with('success','Your post has been Pending for Published');
     }

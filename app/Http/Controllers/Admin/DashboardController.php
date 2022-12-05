@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 class DashboardController extends Controller
 {
     public function index(){
-        $categories = Category::get();
         $posts = Post::get();
         $users = User::get();
         $categories = Category::get();
@@ -20,8 +19,6 @@ class DashboardController extends Controller
             'posts' => $posts,
             'users' => $users
         ];
-        
         return view('admin.dashboard',$data);
-
     }
 }
