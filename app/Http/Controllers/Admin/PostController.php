@@ -126,8 +126,6 @@ class PostController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'images' => $images,
-
-
         ];
         // if (auth()->user()->is_admin != 1) {
         //     $post['status'] = 0;

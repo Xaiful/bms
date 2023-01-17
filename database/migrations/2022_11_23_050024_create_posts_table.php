@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->integer('price');
-            $table->text('images');
+            $table->text('images')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

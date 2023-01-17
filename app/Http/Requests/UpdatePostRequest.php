@@ -36,7 +36,7 @@ class UpdatePostRequest extends FormRequest
                 'required',
                  'integer'
             ],
-            'img' => [
+            'images' => [
                 'nullable',
                 'image:jpg,png,jpeg',
             ],
