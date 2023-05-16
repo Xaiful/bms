@@ -6,7 +6,10 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -19,7 +22,6 @@ class DashboardController extends Controller
         ];
         return view('admin.dashboard',$data);
     }
-<<<<<<< HEAD
     
     public function userOnlineStatus()
     {
@@ -34,6 +36,4 @@ class DashboardController extends Controller
         }
         // dd($test);
     }
-=======
->>>>>>> parent of 9875aff (First commit)
 }
