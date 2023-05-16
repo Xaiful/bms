@@ -181,7 +181,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
                                 @foreach ($users as $index => $item)
                                     <tr>
                                         <td>{{ ++$index }}</td>
@@ -196,7 +195,7 @@
                                         </td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            @if(Cache::has('user-is-online-' . $item->id))
+                                            @if ($item->is_admin == 1)
                                                 <span class="badge badge-pill badge-success">Online</span>
                                             @else
                                                 <span class="badge badge-pill badge-dark">Offline</span>
@@ -214,7 +213,7 @@
                         </table>
                     </div>
                 </div>
-                <!-- /card -->
+                <!-- /.card -->
             </div>
         </div>
     </div>
