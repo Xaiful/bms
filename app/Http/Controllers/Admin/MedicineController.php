@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Stock;
 use App\Models\Category;
+use App\Models\Medicine;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class MedicineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +18,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = Category::get();
-        return view('admin.categories.index', $data);
+        $data['medicines'] = Medicine::get();
+        return view('admin.medicines.index', $data);
     }
 
     /**
@@ -26,7 +29,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        // $data['categories'] = Category::get();
+        $data['subcategories'] = Subcategory::pluck('name','id');
+        return view('admin.medicines.create',$data);
+
     }
 
     /**
@@ -37,15 +43,29 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create([
-            'name'=>$request->name,
-        ]);
-        // dd($cow);
+        $medicine = new Medicine;
+        $medicine->name = $request->name;
+        $medicine->subcategory_id = $request->subcategory_id;
+        $medicine->quantity = $request->quantity;
+        $medicine->save();
 
-        if(!empty($category)){
-            return redirect()->route('categories.index')->with('success' ,'Your category has been added');
+        $medicineStock = new Stock;
+        $medicineStock->medicine_id = $medicine->id;
+        $medicineStock->quantity = $request->quantity;
+
+        $medicineStock->save();
+
+        if(!empty($medicine)){
+            return redirect()->route('medicines.index')->with('success' ,'Your Medicine has been added');
             }
             return redirect()->back()->withInput();
+    }
+
+    public function showStock(Medicine $medicine)
+    {
+        $data['medicineStocks'] = $medicine->stocks;
+        $data['medicine'] = Medicine::get();
+        return view('admin.medicines.stock',$data);
     }
 
     /**
@@ -65,10 +85,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        $data['category'] = $category;
-        return view('admin.categories.edit',$data);
+        //
     }
 
     /**
@@ -78,16 +97,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->update([
-            'name'=>$request->name,
-        ]);
-        // dd($category);
-        if(!empty($category)){
-            return redirect()->route('categories.index')->with('success' ,'Your category has been updated');
-            }
-            return redirect()->back()->withInput();
+        //
     }
 
     /**
@@ -96,10 +108,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-        return redirect()->route('category.index')->with('success','Your category has been successfully deleted');
-
+        //
     }
 }

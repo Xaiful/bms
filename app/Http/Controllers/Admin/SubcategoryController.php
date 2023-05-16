@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class SubcategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = Category::get();
-        return view('admin.categories.index', $data);
+        $data['subcategories'] = Subcategory::get();
+        return view('admin.subcategories.index',$data);
+
     }
 
     /**
@@ -25,8 +27,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.categories.create');
+    {   
+        $data['categories'] = Category::get();
+        return view('admin.subcategories.create',$data);
     }
 
     /**
@@ -37,13 +40,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create([
-            'name'=>$request->name,
+        $subcategory = Subcategory::create([
+            'name' => $request->input('name'),
+            'category_id' => $request->input('category_id')
         ]);
-        // dd($cow);
-
-        if(!empty($category)){
-            return redirect()->route('categories.index')->with('success' ,'Your category has been added');
+    // dd($subcategory);
+        if(!empty($subcategory)){
+            return redirect()->route('subcategories.index')->with('success' ,'Your SubCategories has been added');
             }
             return redirect()->back()->withInput();
     }
@@ -65,10 +68,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Subcategory $subcategory)
     {
-        $data['category'] = $category;
-        return view('admin.categories.edit',$data);
+        $data['subcategory'] = $subcategory;
+        $data['categories'] = Category::all();
+        return view('admin.subcategories.edit',$data);
     }
 
     /**
@@ -78,14 +82,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,Subcategory $subcategory)
     {
-        $category->update([
-            'name'=>$request->name,
+        $subcategory->update([
+            'name' => $request->input('name'),
+            'category_id' => $request->input('category_id')
         ]);
-        // dd($category);
-        if(!empty($category)){
-            return redirect()->route('categories.index')->with('success' ,'Your category has been updated');
+    
+        if(!empty($subcategory)){
+            return redirect()->route('subcategories.index')->with('success' ,'Your SubCategories has been updated');
             }
             return redirect()->back()->withInput();
     }
@@ -96,10 +101,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,Category $category)
+    public function destroy(Subcategory $subcategory)
     {
-        $category->delete();
-        return redirect()->route('category.index')->with('success','Your category has been successfully deleted');
-
+        $subcategory->delete();
+        return redirect()->route('subcategories.index')->with('success','Your SubCategory has been successfully deleted');
     }
 }

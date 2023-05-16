@@ -3,18 +3,21 @@
 namespace App\Models;
 
 use App\Models\Medicine;
-use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Category extends Model
+class Stock extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+
+    protected $fillable = [
+        'medicine_id',
+        'quantity',
+    ];
     
-    public function subcategories()
+    public function product()
     {
-        return $this->hasMany(Subcategory::class);
+        return $this->belongsTo(Medicine::class);
     }
 
 }

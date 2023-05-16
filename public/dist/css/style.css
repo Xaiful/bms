@@ -128,3 +128,37 @@ a:hover {
 .examTable th {
     white-space: nowrap;
 }
+
+.navbar-primary {
+    background-color: #71bf44;
+    color: #fff;
+}
+
+.nav-pills .nav-link:not(.active):hover{
+    color: #71bf44;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+    color: #fff;
+    background-color: #71bf44;
+}
+
+@media (max-width: 634px) {
+    .responsive-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .responsive-table thead {
+      display: table-header-group;
+    }
+  
+    .responsive-table td {
+      display: table-cell;
+      text-align: left;
+    }
+  
+    .responsive-table td:before {
+      display: none;
+    }
+  }

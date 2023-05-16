@@ -14,16 +14,15 @@ use Illuminate\Support\Facades\Cache;
 class DashboardController extends Controller
 {
     public function index(){
-        $posts = Post::get();
         $users = User::get();
         $categories = Category::get();
         $data = [
             'categories' => $categories,
-            'posts' => $posts,
             'users' => $users
         ];
         return view('admin.dashboard',$data);
     }
+    
     public function userOnlineStatus()
     {
         $test = [];

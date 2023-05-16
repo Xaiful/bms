@@ -57,7 +57,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Total Posts</span>
-                        <span class="info-box-number">{{ $posts->count() }}</span>
+                        {{-- <span class="info-box-number">{{ $posts->count() }}</span> --}}
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -131,19 +131,19 @@
                     <div class="card-body">
                         <div id="piechart_3d" style="width: 100%; height: 225px;">
                             <table>
-                                @foreach ($posts as $post)
+                                {{-- @foreach ($posts as $post) --}}
                                     <tr>
                                         <td>
                                             <h6>
-                                                {{ $post->categories->pluck('name')->join(',',', and ')}}
+                                                {{-- {{ $post->categories->pluck('name')->join(',',', and ')}} --}}
                                             </h6>
                                             <h5>
-                                                {{ $loop->index+1 }}
-                                            {{$post->title}}
+                                                {{-- {{ $loop->index+1 }}
+                                            {{$post->title}} --}}
                                             </h5>
                                         </td>
                                     </tr>
-                                @endforeach
+                                {{-- @endforeach --}}
                                 </table>
                             </div>
                         </div>
@@ -219,22 +219,3 @@
         </div>
     </div>
 @endsection
-
-
-{{-- <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</x-admin-layout> --}}
