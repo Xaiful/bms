@@ -39,18 +39,16 @@ class CowController extends Controller
      */
     public function store(StoreCowRequest $request)
     {
-        $cow = Cow::create([
+        $data = [
             'name'=>$request->name,
             'age'=>$request->age,
             'gender'=>$request->gender,
             'weight'=>$request->weight,
             'color'=>$request->color,
             'importer'=>$request->importer,
-            
-            
-        ]);
+        ];
+        $cow = Cow::create($data);
         // dd($cow);
-
         if(!empty($cow)){
             return redirect()->route('cows.index')->with('success' ,'Your Cow has been added');
             }
@@ -89,15 +87,8 @@ class CowController extends Controller
      */
     public function update(UpdateCowRequest $request, Cow $cow)
     {
-        $cow->update([
-            'name'=>$request->name,
-            'age'=>$request->age,
-            'gender'=>$request->gender,
-            'weight'=>$request->weight,
-            'color'=>$request->color,
-            'importer'=>$request->importer,
-            
-        ]);
+        $data = $request->all();
+        $cow->update($data);
         // dd($cow);
         if(!empty($cow)){
             return redirect()->route('cows.index')->with('success','Your cow has been successfully updated');
@@ -113,6 +104,8 @@ class CowController extends Controller
      */
     public function destroy(Cow $cow)
     {
+        $cow->medicines()->detach();
+        // Delete the cow record
         $cow->delete();
         return redirect()->route('cows.index')->with('success','Your cow has been successfully deleted');
     }

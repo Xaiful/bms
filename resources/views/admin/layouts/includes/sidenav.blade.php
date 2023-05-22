@@ -47,6 +47,14 @@
                         <p> Medicines </p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('cow-medicines.index') }}"
+                        class="nav-link {{ (request()->is('admin/cow-medicines*')) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-house"></i>
+                        <p> Feedings </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

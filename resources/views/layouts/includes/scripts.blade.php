@@ -40,6 +40,8 @@
 </script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
     $(document).ready(function() {
         $('.myDataTable').DataTable({
@@ -168,4 +170,44 @@
         /* Alert the copied text */
         // alert("Copied: " + copyText.value);
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var dates = @json($dates);
+        var decreaseData = @json($decreaseData);
+
+        var ctx = document.getElementById('feedChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Stock Decrease',
+                    data: decreaseData,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Decrease in Stock'
+                        }
+                    }
+                }
+            }
+        });
+    });
 </script>

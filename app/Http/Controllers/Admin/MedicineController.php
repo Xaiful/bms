@@ -29,9 +29,10 @@ class MedicineController extends Controller
      */
     public function create()
     {
-        // $data['categories'] = Category::get();
-        $data['subcategories'] = Subcategory::pluck('name','id');
+        $data['subcategories'] = Subcategory::get();
+        // $subcategories = Subcategory::pluck('name','id');
         return view('admin.medicines.create',$data);
+        // return view('admin.medicines.create', ['subcategories' => $subcategories]);
 
     }
 
@@ -43,18 +44,21 @@ class MedicineController extends Controller
      */
     public function store(Request $request)
     {
-        $medicine = new Medicine;
-        $medicine->name = $request->name;
-        $medicine->subcategory_id = $request->subcategory_id;
-        $medicine->quantity = $request->quantity;
-        $medicine->save();
+        $medicine = Medicine::create([
+            'name'=>$request->input('name'),
+            'quantity'=>$request->input('quantity'),
+            'subcategory_id'=>$request->input('subcategory_id'),
+            'suplier'=>$request->input('suplier'),
+            'memo_no'=>$request->input('memo_no'),
+            'unit_price'=>$request->input('unit_price'),
+            'total'=>$request->input('total')
 
-        $medicineStock = new Stock;
-        $medicineStock->medicine_id = $medicine->id;
-        $medicineStock->quantity = $request->quantity;
-
-        $medicineStock->save();
-
+        ]);
+        $medicine->stocks()->create([
+            'quantity' => $medicine['quantity'],
+            'total'=>$medicine->unit_price * $medicine->quantity
+        ]);
+        
         if(!empty($medicine)){
             return redirect()->route('medicines.index')->with('success' ,'Your Medicine has been added');
             }
@@ -64,7 +68,8 @@ class MedicineController extends Controller
     public function showStock(Medicine $medicine)
     {
         $data['medicineStocks'] = $medicine->stocks;
-        $data['medicine'] = Medicine::get();
+        $data['updatedTotal'] = $medicine->unit_price * $medicine->quantity;
+        $data['medicines'] = Medicine::get();
         return view('admin.medicines.stock',$data);
     }
 
@@ -85,9 +90,12 @@ class MedicineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Medicine $medicine)
     {
-        //
+        $data['subcategories'] = Subcategory::all();
+        $data['medicineStock'] = Stock::all();
+        $data['medicine'] = $medicine;
+        return view('admin.medicines.edit',$data);
     }
 
     /**
@@ -97,9 +105,17 @@ class MedicineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatestock(Request $request,Medicine $medicine)
     {
-        //
+        $data = $request->all();
+        $medicine->update($data);
+        $medicine->stocks()->update(['quantity' => $request->quantity]);
+        $medicine->stocks()->update(['total' => $request->total]);
+
+        if(!empty($medicine)){
+            return redirect()->route('medicines.index')->with('success' ,'Your Medicine has been updated');
+            }
+            return redirect()->back()->withInput();
     }
 
     /**
@@ -109,7 +125,17 @@ class MedicineController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+        $medicine = Medicine::find($id);
+        if (!$medicine) {
+            return redirect()->back()->with('error', 'Medicine not found.');
+        }
+        // Delete associated stock records
+        $medicine->stocks()->delete();
+        // $medicine->detach()->stocks();
+        // Delete the medicine
+        $medicine->delete();
+        return redirect()->route('medicines.index')->with('success','Your medicine has been successfully deleted');
     }
+
 }

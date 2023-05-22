@@ -21,7 +21,10 @@
                     <p style="color: red">{{ $errors->first('age') }}</p>
                 </div>
                 <div class="mb-3">
-                    <input name="gender" type="text" class="form-control" placeholder="Gender" value="{{old ('gender',$cow->gender) }}">
+                    <select name="gender" id="gender" class="form-control">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
                     <p style="color: red">{{ $errors->first('gender') }}</p>
                 </div>
                 <div class="mb-3">

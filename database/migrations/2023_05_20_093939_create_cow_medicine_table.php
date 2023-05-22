@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCowsTable extends Migration
+class CreateCowMedicineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateCowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cows', function (Blueprint $table) {
+        Schema::create('cow_medicine', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->integer('age');
-            $table->enum('gender', ['male', 'female']);
-            $table->integer('weight');
-            $table->string('color');
-            $table->string('importer');
+            $table->foreignId('cow_id')->constrained('cows');
+            $table->foreignId('medicine_id')->constrained('medicines');
+            $table->decimal('quantity');
+            // $table->decimal('taka', 8, 2);
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateCowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cows');
+        Schema::dropIfExists('cow_medicine');
     }
 }

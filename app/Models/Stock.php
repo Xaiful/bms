@@ -13,9 +13,10 @@ class Stock extends Model
     protected $fillable = [
         'medicine_id',
         'quantity',
+        'total',
     ];
     
-    public function product()
+    public function medicine()
     {
         return $this->belongsTo(Medicine::class);
     }

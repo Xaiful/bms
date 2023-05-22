@@ -19,21 +19,5 @@ class DashboardController extends Controller
         ];
         return view('admin.dashboard',$data);
     }
-<<<<<<< HEAD
-    
-    public function userOnlineStatus()
-    {
-        $test = [];
-        $users = User::all();
-        foreach ($users as $user) {
-            $test[] = Cache::has('user-is-online-' . $user->id);
-            if (Cache::has('user-is-online-' . $user->id))
-                echo $user->name . " is online. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
-            else
-                echo $user->name . " is offline. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
-        }
-        // dd($test);
-    }
-=======
->>>>>>> parent of 9875aff (First commit)
+
 }

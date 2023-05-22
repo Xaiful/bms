@@ -28,6 +28,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {   
+        
         $data['categories'] = Category::get();
         return view('admin.subcategories.create',$data);
     }
@@ -39,12 +40,12 @@ class SubcategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $subcategory = Subcategory::create([
             'name' => $request->input('name'),
             'category_id' => $request->input('category_id')
         ]);
-    // dd($subcategory);
+    //dd($subcategory);
         if(!empty($subcategory)){
             return redirect()->route('subcategories.index')->with('success' ,'Your SubCategories has been added');
             }

@@ -16,9 +16,12 @@ class CreateMedicinesTable extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('quantity')->default(0);
-            // $table->foreignId('subcategory_id');
+            $table->decimal('quantity')->default(0);
             $table->foreignId('subcategory_id')->constrained('subcategories');
+            // $table->decimal('taka', 8, 2);
+            $table->string('suplier');
+            $table->integer('memo_no');
+            $table->decimal('unit_price');
             $table->timestamps();
         });
     }

@@ -96,10 +96,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,Category $category)
+    public function destroy($id)
     {
+        $category = Category::find($id);
+        if (!$category) {
+            return redirect()->back()->with('error', 'Category not found.');
+        }
+        // Delete associated stock records
+        // $category->stocks()->delete();
+        // $medicine->detach()->stocks();
+        // Delete the medicine
         $category->delete();
-        return redirect()->route('category.index')->with('success','Your category has been successfully deleted');
+        return redirect()->route('categories.index')->with('success','Your category has been successfully deleted');
 
     }
 }

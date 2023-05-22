@@ -13,7 +13,6 @@
             <table class="table table-bordered table-striped responsive-table">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Age/Days</th>
                         <th>Gender</th>
@@ -29,7 +28,6 @@
                     @foreach ($cows as $cow)
                     <tr>
                         {{-- <td>{{ $about->id }}</td> --}}
-                        <td>{{ $cow->id }}</td>
                         <td>{{ $cow->name }}</td>
                         <td>{{ $cow->age }}</td>
                         <td>{{ $cow->gender }}</td>

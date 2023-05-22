@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cow;
 use App\Models\Stock;
 use App\Models\Category;
 use App\Models\Subcategory;
@@ -12,9 +13,12 @@ class Medicine extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'subcategory_id',
         'name',
-        'quantity'
+        'memo_no',
+        'suplier',
+        'unit_price',
+        'quantity',
+        'subcategory_id'
     ];
 
     public function getAvailableQuantity()
@@ -39,4 +43,12 @@ class Medicine extends Model
     {
         return $this->hasMany(Stock::class);
     }
+    public function cows()
+    {
+        return $this->belongsToMany(Cow::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
+    }
+    
+    
 }

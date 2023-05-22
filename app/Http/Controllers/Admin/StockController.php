@@ -39,14 +39,17 @@ class StockController extends Controller
     public function store(Request $request)
     {
         $medicine = Medicine::create($request->all());
-        
         // Create a new stock record for the medicine
         Stock::create([
             'medicine_id' => $medicine->id,
             'quantity' => $request->input('stock_quantity', 0),
+            'total'=>$medicine->unit_price * $medicine->quantity
         ]);
-
-        return redirect()->route('medicines.index');
+        
+        if(!empty($medicine)){
+            return redirect()->route('medicines.index')->with('success' ,'Your Medicine has been added');
+            }
+            return redirect()->back()->withInput();
     }
 
     /**
@@ -78,10 +81,25 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function updateStock(Request $request, $stockId)
+{
+    // Retrieve the stock record
+    $stock = Stock::findOrFail($stockId);
+
+    // Retrieve the associated medicine record
+    $medicine = $stock->medicine;
+
+    // Update the stock quantity (code omitted for brevity)
+
+    // Calculate the updated total value
+    $updatedTotal = $medicine->unit_price * $medicine->quantity;
+
+    // Pass the updated total to the view
+    if(!empty($medicine)){
+        return redirect()->route('medicines.index',$updatedTotal)->with('success' ,'Your Medicine has been updated');
+        }
+        return redirect()->back()->withInput();
+}
 
     /**
      * Remove the specified resource from storage.
