@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\CategoriesSeeder;
-use Database\Seeders\SubcategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,11 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $this->call([
-            UserSeeder::class,
-            CategoriesSeeder::class,
-            SubcategorySeeder::class,
-            CowsSeeder::class
-         ]);
+        $this->call(UserSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(DevisionSeeder::class);
+        $this->call(DistrictSeeder::class);
+        $this->call(SubDistrictSeeder::class);
+        $this->call(AreaSeeder::class);
     }
 }

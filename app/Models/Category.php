@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Medicine;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
