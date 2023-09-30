@@ -188,16 +188,17 @@ class RoleSeeder extends Seeder
             for ($j = 0; $j < count($permissions[$i]['permissions']); $j++) {
                 // Create Permission
                 $permission = Permission::create(['name' => $permissions[$i]['permissions'][$j], 'group_name' => $permissionGroup, 'guard_name' => 'web']);
-                
-                // Assign permissions to roles
-                if ($permission->name === 'view-warehouse') {
-                    $roleWARE->givePermissionTo($permission);
-                }
-        
-                // Assign permissions to super admin role
                 $roleSuperAdmin->givePermissionTo($permission);
                 $permission->assignRole($roleSuperAdmin);
             }
+        }
+        if ($permission->name === 'view-warehouse') {
+            $roleWARE->givePermissionTo($permission);
+        }
+        // Assign super admin role permission to superadmin user
+        $admin = User::where('email', 'superadmin@gmail.com')->first();
+        if ($admin) {
+            $admin->assignRole($roleSuperAdmin);
         }
 
     }
