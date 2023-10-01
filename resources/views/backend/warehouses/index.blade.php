@@ -5,7 +5,7 @@
             <div class="page-title-wrapper">
                 <div class="page-title-actions">
                     <a class="btn btn-lg btn-transition btn btn-outline-success" href="{{route('warehouses.create')}}">
-                        Create 
+                        Create
                     </a>
                 </div>    
             </div>

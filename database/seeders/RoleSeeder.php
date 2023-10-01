@@ -154,12 +154,9 @@ class RoleSeeder extends Seeder
                     'warehouses-create',
                     'warehouses-edit',
                     'warehouses-delete',
-                    'view-warehouse',
-                    // Add more permissions as needed        
+                    'view-warehouse',    
                 ]
             ],
-
-            
 
             [
                 'group_name' => 'area',
@@ -168,6 +165,15 @@ class RoleSeeder extends Seeder
                     'areas-create',
                     'areas-edit',
                     'areas-delete',
+                ]
+            ],
+            [
+                'group_name' => 'visittypes',
+                'permissions' => [
+                    'visittypes-list',
+                    'visittypes-create',
+                    'visittypes-edit',
+                    'visittypes-delete',
                 ]
             ],
         ];
@@ -180,6 +186,7 @@ class RoleSeeder extends Seeder
         $roleSPO = Role::create(['name' => 'SPO']);
         $roleASPO = Role::create(['name' => 'ASPO']);
         $roleWARE = Role::create(['name' => 'WARE']);
+        $roleSRD = Role::create(['name' => 'SRD']);
 
 
         // Create and Assign Permissions
@@ -194,6 +201,7 @@ class RoleSeeder extends Seeder
         }
         if ($permission->name === 'view-warehouse') {
             $roleWARE->givePermissionTo($permission);
+            // $roleSRD->givePermissionTo($permission);
         }
         // Assign super admin role permission to superadmin user
         $admin = User::where('email', 'superadmin@gmail.com')->first();

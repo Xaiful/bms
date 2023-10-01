@@ -19,6 +19,7 @@ class WarehouseController extends Controller
     function __construct()
     {
          $this->middleware('permission:warehouses-list', ['only' => ['index','show']]);
+         $this->middleware('permission:warehouses-warehouse', ['only' => ['index','show']]);
          $this->middleware('permission:view-warehouse', ['only' => ['show']]);
          $this->middleware('permission:warehouses-create', ['only' => ['create','store']]);
          $this->middleware('permission:warehouses-edit', ['only' => ['edit','update']]);
@@ -120,7 +121,7 @@ class WarehouseController extends Controller
                 $data['warehouse_products'] = WarehouseProduct::where('warehouse_id', $warehouseId)->get();
                 return view('backend.warehouses.show', $data);
             }
-        } elseif ($user->hasRole('Admin')) {
+        } elseif ($user->hasRole(['Admin','SRD'])) {
             // If the user has the 'Admin' role, allow access to the warehouse
             $warehouse = Warehouse::find($warehouseId);
             if ($warehouse) {
@@ -129,6 +130,7 @@ class WarehouseController extends Controller
                 return view('backend.warehouses.show', $data);
             }
         }
+        
 
         // If the user doesn't have the required role or access, redirect them or show an error message
         return redirect()->back()->with('error', 'Unauthorized access to this warehouse.');
